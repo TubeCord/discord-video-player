@@ -37,6 +37,7 @@
   <a href="#rocket-technologies">Technologies</a> &#xa0; | &#xa0;
   <a href="#white_check_mark-requirements">Requirements</a> &#xa0; | &#xa0;
   <a href="#checkered_flag-starting">Starting</a> &#xa0; | &#xa0;
+  <a href="#passport_control-contributing">Contributing</a> &#xa0; | &#xa0;
   <a href="#memo-license">License</a> &#xa0; | &#xa0;
   <a href="#authors" target="_blank">Authors</a>
 </p>
@@ -45,7 +46,7 @@
 
 ## :dart: About ##
 
-A website that will fetch random Discord CDN links from our database, and play it in a video player.
+A website that will fetch random Discord CDN links from our database, and play it inside a website.
 
 ## :rocket: Technologies ##
 
@@ -78,12 +79,25 @@ $ pnpm start
 # The server will initialize @ <http://localhost:443>
 ```
 
+## :passport_control: Contributing ##
+
+Thank you for your interest in contributing to this project! We welcome any contributions that can enhance the functionality and usability of our website and bot.
+
+For detailed instructions on how to grab and share video links, please refer to our ["Contribution Guide"](Wiki link here) in the Wiki. It provides step-by-step instructions and tips on how to effectively find and share video links.
+
+We appreciate your efforts in contributing to our project and helping us build a comprehensive video database. Your contributions will make a difference in providing a better user experience for all our users.
+
+If you have any questions or need further assistance, please don't hesitate to reach out to us through ["GitHub Issues"](https://github.com/TubeCord/discord-video-player/issues).
+
+We look forward to your contributions 🙏🏻
+
 ## :memo: License ##
 
 This project is licensed under MPL-2.0. For more details, see the [LICENSE](LICENSE.md) file.
 
 ## :heart: Authors ##
-- [TomerGamerTV](https://github.com/TomerGamerTV)
+
+- [TomerGamerTV](https://feds.lol/TomerGamerTV)
 - [spinfal](https://out.spin.rip/github)
 
 &#xa0;
