@@ -39,8 +39,8 @@
   <a href="#checkered_flag-starting">Starting</a> &#xa0; | &#xa0;
   <a href="#passport_control-contributing">Contributing</a> &#xa0; | &#xa0;
   <a href="#memo-license">License</a> &#xa0; | &#xa0;
-  <a href="#authors">Authors</a> &#xa0; | &#xa0;
-  <a href="#⚠️-disclaimer">Disclaimer</a>
+  <a href="#heart-authors">Authors</a> &#xa0; | &#xa0;
+  <a href="#warning-disclaimer">Disclaimer</a>
 </p>
 
 <br>
@@ -101,7 +101,7 @@ This project is licensed under MPL-2.0. For more details, see the [LICENSE](LICE
 - [TomerGamerTV](https://feds.lol/TomerGamerTV)
 - [spinfal](https://out.spin.rip/github)
 
-## ⚠️ Disclaimer ##
+## :warning: Disclaimer ##
 
 Please note that we are not responsible for the links submitted by the users or the content displayed in the video player. It is the user's responsibility to ensure that the submitted links do not contain illegal or inappropriate material.
 
