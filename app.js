@@ -28,7 +28,7 @@ app.get('/api/link', (req, res) => {
 });
 
 async function getRandomLineFromGithub() {
-  const url = 'https://raw.githubusercontent.com/TomerGamerTV/discord-cdnlink-scraper/selfbot/links/discord_cdn_links.txt';
+  const url = 'https://raw.githubusercontent.com/TubeCord/database/main/discord_cdn_links.txt';
 
   try {
     const response = await fetch(url);

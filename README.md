@@ -39,7 +39,8 @@
   <a href="#checkered_flag-starting">Starting</a> &#xa0; | &#xa0;
   <a href="#passport_control-contributing">Contributing</a> &#xa0; | &#xa0;
   <a href="#memo-license">License</a> &#xa0; | &#xa0;
-  <a href="#authors" target="_blank">Authors</a>
+  <a href="#authors">Authors</a> &#xa0; | &#xa0;
+  <a href="#warning_sign-disclaimer">Disclaimer</a>
 </p>
 
 <br>
@@ -99,6 +100,20 @@ This project is licensed under MPL-2.0. For more details, see the [LICENSE](LICE
 
 - [TomerGamerTV](https://feds.lol/TomerGamerTV)
 - [spinfal](https://out.spin.rip/github)
+
+## :warning_sign: Disclaimer ##
+
+Please note that we are not responsible for the links submitted by the users or the content displayed in the video player. It is the user's responsibility to ensure that the submitted links do not contain illegal or inappropriate material.
+
+We provide a platform for users to share and view video links, but we do not have control over the content of those links. Users should exercise caution and report any links that contains illegal material.
+
+Additionally, we cannot guarantee the availability or functionality of the links submitted. Broken or outdated links may occasionally be present, and users should report any broken links they encounter.
+
+If you come across any links that contains illegal material, please report them to us through [GitHub Issues](https://github.com/TubeCord/discord-video-player/issues). We will take appropriate action to address the issue.
+
+By using our website and accessing the links shared by other users, you acknowledge and agree that you assume all risks and responsibilities associated with the content and usage of those links.
+
+We appreciate your cooperation in maintaining a safe and enjoyable experience for all users.
 
 &#xa0;
 
