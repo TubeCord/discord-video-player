@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+      <%= name %>
+    </title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              "primary-dark": "#313338",
+              "secondary-dark": "#2b2d31",
+              "primary-button": "#5865f2",
+              "primary-button-hover": "#4752C4",
+              "secondary-button": "#4e5058",
+              "secondary-button-hover": "#6D6F78",
+              "danger-button": "#da373c",
+              "danger-button-hover": "#A12828",
+            },
+            fontFamily: {
+              'primary-font': ['FredokaOne', 'sans'] /* 'sans' is a fallback font */
+            }
+          },
+        },
+      };
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
+    <link rel="stylesheet" href="/assets/css/index.css" />
+  </head>
+
+  <body class="p-3 relative bg-primary-dark">
+    <!-- top btns -->
+    <div class="flex justify-between mb-4">
+      <button
+        class="bg-secondary-button hover:bg-secondary-button-hover transition duration-150 text-white py-2 px-4 rounded"><%= pageContent.buttons.topRow.left %></button>
+      <button
+        class="bg-secondary-button hover:bg-secondary-button-hover transition duration-150 text-white py-2 px-4 rounded"><%= pageContent.buttons.topRow.right %></button>
+    </div>
+
+    <!-- main content -->
+    <div class="flex flex-col items-center gap-10 h-full">
+      <div class="flex flex-col items-center gap-1">
+        <img src="/assets/images/logo.png" title="<%= name %> logo" alt="<%= name %> logo" draggable="false"
+          class="mx-auto rounded-full w-24 md:w-1/5">
+        <h2 class="text-2xl text-white font-primary-font">
+          <%= name %>
+        </h2>
+      </div>
+      <div class="flex flex-col items-center w-full md:w-7/12 2xl:w-5/12">
+        <div class="video-wrapper">
+          <!-- TODO: use a video player framework instead of the native player -->
+          <video id="player" class="video-player" controls preload="auto" poster="<%= pageContent.logo %>">
+            <source src="<%- link %>" type="video/mp4" />
+            <p>To view this video please enable JavaScript, and consider upgrading to a web browser that <a
+                href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+          </video>
+        </div>
+        <!-- Buttons Container -->
+        <div class="flex justify-between w-full mt-4">
+          <!-- Left Column -->
+          <div class="flex flex-col space-y-4">
+            <button
+              class="bg-primary-button hover:bg-primary-button-hover text-white transition duration-150 py-2 px-6 md:w-56 lg:w-52 rounded"><%= pageContent.buttons.videoControls['1L'] %></button>
+            <button
+              class="bg-primary-button hover:bg-primary-button-hover text-white transition duration-150 py-2 px-6 md:w-56 lg:w-52 rounded"><%= pageContent.buttons.videoControls['2L'] %></button>
+          </div>
+          <!-- Right Column -->
+          <div class="flex flex-col space-y-4">
+            <button
+              class="bg-primary-button hover:bg-primary-button-hover text-white transition duration-150 py-2 px-6 md:w-56 lg:w-52 rounded"><%= pageContent.buttons.videoControls['1R'] %></button>
+            <button
+              class="bg-primary-button hover:bg-primary-button-hover text-white transition duration-150 py-2 px-6 md:w-56 lg:w-52 rounded"><%= pageContent.buttons.videoControls['2R'] %></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- bottom btns -->
+    <div class="fixed bottom-0 left-0 p-3">
+      <button
+        class="bg-secondary-button hover:bg-secondary-button-hover transition duration-150 text-white py-2 px-4 rounded"><%= pageContent.buttons.bottomRow.left %></button>
+    </div>
+    <div class="fixed bottom-0 right-0 p-3">
+      <button
+        class="bg-secondary-button hover:bg-secondary-button-hover transition duration-150 text-white py-2 px-4 rounded"><%= pageContent.buttons.bottomRow.right %></button>
+    </div>
+
+    <!-- modal -->
+    <div id="infoModal" class="fixed inset-0 flex items-center justify-center p-4 hidden">
+      <div class="absolute inset-0 bg-black opacity-50"></div>
+      <div class="bg-primary-dark text-slate-100 w-2/3 md:w-1/2 p-5 rounded shadow-lg relative z-10">
+        <button id="closeModal" class="absolute top-2 right-2">
+          <i class="fas fa-times"></i>
+        </button>
+        <div class="flex flex-col gap-3">
+          <h2 class="text-2xl"><%= pageContent.dialog.title %>
+          </h2>
+          <p class="tracking-wide "><%- pageContent.dialog.message %></p>
+        </div>
+      </div>
+    </div>
+    <script>
+      // // get a video and update the player
+      // const player = document.querySelector('#player');
+      // fetch('/api/link').then(res => res.text()).then(line => {
+      //   player.source = {
+      //     type: 'video',
+      //     sources: [{
+      //       src: line,
+      //       type: 'video/mp4',
+      //     },],
+      //   };
+      // });
+
+      // Modal toggle logic
+      document.querySelector("button:nth-child(2)").addEventListener("click", () => {
+        document.getElementById("infoModal").classList.remove("hidden");
+      });
+      document.getElementById("closeModal").addEventListener("click", () => {
+        document.getElementById("infoModal").classList.add("hidden");
+      });
+    </script>
+  </body>
+
+</html>

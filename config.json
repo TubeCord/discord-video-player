@@ -1,0 +1,28 @@
+{
+  "NAME": "Tubecord",
+  "URL": "localhost",
+  "PORT": 443,
+  "PAGE_CONTENT": {
+    "logo": "/assets/images/video_poster.jpg",
+    "buttons": {
+      "topRow": {
+        "left": "tbd",
+        "right": "tbd"
+      },
+      "videoControls": {
+        "1L": "Button 1L",
+        "2L": "Button 2L",
+        "1R": "Button 1R",
+        "2R": "Button 2R"
+      },
+      "bottomRow": {
+        "left": "tbd",
+        "right": "tbd"
+      }
+    },
+    "dialog": {
+      "title": "Information about this site",
+      "message": "This site uses CDN links that have been gathered from Discord channels. They have been submitted by other users, and we do not actively check these links unless a specific link has been reported."
+    }
+  }
+}
