@@ -7,7 +7,7 @@
 </div>
 
 <h1 align="center">TubeCord</h1>
-
+<p align="center"><small>The Discord version of the russian roulette 😂</small></p>
 <p align="center">
   <img alt="Github top language" src="https://img.shields.io/github/languages/top/TubeCord/discord-video-player?color=56BEB8">
 
