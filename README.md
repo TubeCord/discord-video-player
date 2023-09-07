@@ -17,11 +17,11 @@
 
   <img alt="License" src="https://img.shields.io/github/license/TubeCord/discord-video-player?color=56BEB8">
 
-  <!-- <img alt="Github issues" src="https://img.shields.io/github/issues/TomerGamerTV/discord-video-player?color=56BEB8" /> -->
+  <!-- <img alt="Github issues" src="https://img.shields.io/github/issues/TubeCord/discord-video-player?color=56BEB8" /> -->
 
-  <!-- <img alt="Github forks" src="https://img.shields.io/github/forks/TomerGamerTV/discord-video-player?color=56BEB8" /> -->
+  <!-- <img alt="Github forks" src="https://img.shields.io/github/forks/TubeCord/discord-video-player?color=56BEB8" /> -->
 
-  <!-- <img alt="Github stars" src="https://img.shields.io/github/stars/TomerGamerTV/discord-video-player?color=56BEB8" /> -->
+  <!-- <img alt="Github stars" src="https://img.shields.io/github/stars/TubeCord/discord-video-player?color=56BEB8" /> -->
 </p>
 
 <!-- Status -->
@@ -66,7 +66,7 @@ Before starting :checkered_flag:, you need to have [Git](https://git-scm.com), [
 
 ```bash
 # Clone this project
-$ git clone https://github.com/TomerGamerTV/discord-video-player.git tubecord
+$ git clone https://github.com/TubeCord/discord-video-player.git tubecord
 
 # Access
 $ cd tubecord
@@ -103,17 +103,15 @@ This project is licensed under MPL-2.0. For more details, see the [LICENSE](LICE
 
 ## :warning: Disclaimer ##
 
-Please note that we are not responsible for the links submitted by the users or the content displayed in the video player. It is the user's responsibility to ensure that the submitted links do not contain illegal or inappropriate material.
+Please note that we are not responsible for the links submitted by the users or the content displayed in the video player. It is the user's responsibility to ensure that the submitted links do not contain illegal or inappropriate material, and that they comply with Discord's Terms of Service, as the videos are hosted on Discord's CDN.
 
-We provide a platform for users to share and view video links, but we do not have control over the content of those links. Users should exercise caution and report any links that contains illegal material.
+We provide a platform for users to share and view video links, but we do not have control over the content of those links. Users should exercise caution and report any links that contain illegal material or grossly violate Discord's ToS.
 
 Additionally, we cannot guarantee the availability or functionality of the links submitted. Broken or outdated links may occasionally be present, and users should report any broken links they encounter.
 
-If you come across any links that contains illegal material, please report them to us through [GitHub Issues](https://github.com/TubeCord/discord-video-player/issues). We will take appropriate action to address the issue.
+**Limitation of Liability**: By using our website and accessing the links shared by other users, you acknowledge and agree that you assume all risks and responsibilities associated with the content and usage of those links.
 
-By using our website and accessing the links shared by other users, you acknowledge and agree that you assume all risks and responsibilities associated with the content and usage of those links.
-
-We appreciate your cooperation in maintaining a safe and enjoyable experience for all users.
+If you come across any links that contain illegal material or grossly violate Discord's ToS, please report them to us through [GitHub](https://github.com/TubeCord/discord-video-player/issues) Issues. We will take appropriate action to address the issue.
 
 &#xa0;
 

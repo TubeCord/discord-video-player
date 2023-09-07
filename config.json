@@ -6,23 +6,33 @@
     "logo": "/assets/images/video_poster.jpg",
     "buttons": {
       "topRow": {
-        "left": "Invite our bot!",
-        "right": "Info"
+        "left": {
+          "text": "Invite our bot! (soon)",
+          "link": "#"
+        },
+        "right": {
+          "text": "Info"
+        }
       },
       "videoControls": {
         "1L": "Last Video",
-        "2L": "History/Copy URL",
+        "2L": "More Actions",
         "1R": "Next Video",
         "2R": "Download Video"
       },
       "bottomRow": {
-        "left": "Contribute!",
-        "right": "GitHub"
+        "left": {
+          "text": "Contribute!",
+          "link": "#"
+        },
+        "right": {
+          "text": "GitHub",
+          "link": "https://github.com/TubeCord"
+        }
       }
     },
     "dialog": {
-      "title": "Information about this site:",
-      "message": "This site uses CDN links that have been gathered from Discord channels. They have been submitted by random users, because of this we are not responsible for what videos show up on your screen."
+      "_MOVED": "see: /assets/js/index.js"
     }
   }
 }

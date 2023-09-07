@@ -36,6 +36,23 @@
   object-fit: contain;
 }
 
+.error-card {
+  padding: 1.5em;
+  background-color: #e7828430;
+  border: 1px solid #e78284;
+  border-radius: 5px;
+  color: var(--text-normal, white);
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 #infoModal .bg-white {
   z-index: 20;
   /* This ensures that the modal is above the overlay */
