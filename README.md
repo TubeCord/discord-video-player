@@ -7,7 +7,7 @@
 </div>
 
 <h1 align="center">TubeCord</h1>
-<p align="center"><small>The Discord version of the russian roulette 😂</small></p>
+<p align="center"><small>Russian Roulette But With Discord Videos 😂</small></p>
 <p align="center">
   <img alt="Github top language" src="https://img.shields.io/github/languages/top/TubeCord/discord-video-player?color=56BEB8">
 
@@ -84,7 +84,7 @@ $ pnpm start
 
 Thank you for your interest in contributing to this project! We welcome any contributions that can enhance the functionality and usability of our website and bot.
 
-For detailed instructions on how to grab and share video links, please refer to our ["Contribution Guide"](Wiki link here) in the Wiki. It provides step-by-step instructions and tips on how to effectively find and share video links.
+For detailed instructions on how to grab and share video links, please refer to our ["Contribution Guide"](https://github.com/TubeCord/discord-video-player/wiki/Contribution-Guide) inside the Wiki. It provides step-by-step instructions and tips on how to effectively install, run, find and share video links.
 
 We appreciate your efforts in contributing to our project and helping us build a comprehensive video database. Your contributions will make a difference in providing a better user experience for all our users.
 
