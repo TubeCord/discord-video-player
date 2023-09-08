@@ -6,6 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><%= name %></title>
+  <link rel="icon" type="image/png" href="/assets/images/logo.png">
 
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
@@ -92,9 +93,9 @@
       <% } %>
     </div>
     <% if(index === 0) { %>
-    <div class="text-center text-white">
-      TubeCord
-    </div>
+      <div class="flex justify-center absolute bottom-0 w-full">
+        <p style="color: rgba(255, 255, 255, 0.35);" class="text-center sm:text-left">Made With ❤️ By Spinfal and TomerGamerTV</p>
+      </div>
     <% } %>
     <% }) %>
   </div>

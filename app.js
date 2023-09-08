@@ -48,7 +48,7 @@ app.get('/api/check-video', async (req, res) => {
     if (mimeType === 'video/quicktime') {
       return res.json({
         error: "Uh oh!",
-        message: "This .mov file may not play depending on its encoding. If it doesn't play, try using Safari or downloading the device to your device."
+        message: "This .mov file may not play depending on its encoding. If it doesn't play, try using Safari or downloading the video to your device."
       });
     } else if (mimeType !== 'video/mp4' && mimeType !== 'video/webm' && !mimeType && response.status !== 200) {
       return res.json({

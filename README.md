@@ -84,11 +84,11 @@ $ pnpm start
 
 Thank you for your interest in contributing to this project! We welcome any contributions that can enhance the functionality and usability of our website and bot.
 
-For detailed instructions on how to grab and share video links, please refer to our ["Contribution Guide"](https://github.com/TubeCord/discord-video-player/wiki/Contribution-Guide) inside the Wiki. It provides step-by-step instructions and tips on how to effectively install, run, find and share video links.
+For detailed instructions on how to grab and share video links, please refer to our [Contribution Guide](https://github.com/TubeCord/discord-video-player/wiki/Contribution-Guide) inside the Wiki. It provides step-by-step instructions and tips on how to effectively install, run, find and share video links.
 
 We appreciate your efforts in contributing to our project and helping us build a comprehensive video database. Your contributions will make a difference in providing a better user experience for all our users.
 
-If you have any questions or need further assistance, please don't hesitate to reach out to us through ["GitHub Issues"](https://github.com/TubeCord/discord-video-player/issues).
+If you have any questions or need further assistance, please don't hesitate to reach out to us through [GitHub Issues](https://github.com/TubeCord/discord-video-player/issues).
 
 We look forward to your contributions 🙏🏻
 
@@ -111,7 +111,7 @@ Additionally, we cannot guarantee the availability or functionality of the links
 
 **Limitation of Liability**: By using our website and accessing the links shared by other users, you acknowledge and agree that you assume all risks and responsibilities associated with the content and usage of those links.
 
-If you come across any links that contain illegal material or grossly violate Discord's ToS, please report them to us through [GitHub](https://github.com/TubeCord/discord-video-player/issues) Issues. We will take appropriate action to address the issue.
+If you come across any links that contain illegal material or grossly violate Discord's ToS, please report them to us through [GitHub](https://github.com/TubeCord/discord-video-player/issues) Issues or directly to Discord. We will take appropriate action to address the issue.
 
 &#xa0;
 

@@ -1,0 +1,10 @@
+08/09/2023
+Fixed readme links
+Added favicon
+Checked if button links are working
+Linked contribue button to github
+Added bottom credits text
+
+Known Issues:
+When you first open the website and click info the clear history and report buttons don't show up, you need to first click on "More Actions" button to summon them and then they will show up in Info
+Currently download button doesn't function, Also last and next video
