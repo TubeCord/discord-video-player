@@ -1,3 +1,12 @@
+08/09/2023 v2
+- fix check-video response.status if statement
+- fix footer formatting
+- fix pageContent value for logo & add value for footer
+- fix #3
+- fix history not storing first video
+- Changed url under my name
+- Added funding yml hopefully it works
+
 08/09/2023
 Fixed readme links
 Added favicon
