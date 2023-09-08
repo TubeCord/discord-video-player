@@ -33,7 +33,7 @@
       }
     },
     "footer": {
-      "text": "Made With <span class=\"hover:animate-pulse\">❤️</span> By <a href=\"https://out.spin.rip/home\" class=\"text-blue-400 hover:text-blue-500\">spin</a> and <a href=\"https://tomergamertvfire.web.app/\" class=\"text-blue-400 hover:text-blue-500\">TomerGamerTV</a>"
+      "text": "Made With <span class=\"hover:animate-pulse\">❤️</span> By <a href=\"https://out.spin.rip/home\" class=\"text-blue-400 hover:text-blue-500\">spin</a> and <a href=\"https://ko-fi.com/tomergamertv\" class=\"text-blue-400 hover:text-blue-500\">TomerGamerTV</a>"
     },
     "dialog": {
       "_MOVED": "see: /assets/js/index.js"
