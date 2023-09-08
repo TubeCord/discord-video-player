@@ -5,19 +5,32 @@ const errorTitle = document.getElementById("errorTitle");
 const errorMessage = document.getElementById("errorMessage");
 let currentIndex = 0;
 
-function enableButton(buttonId, eventListener) {
-  document.getElementById(buttonId).disabled = false;
-  if (eventListener) {
-    player.removeEventListener("loadedmetadata", eventListener);
-    player.removeEventListener("error", eventListener);
-  }
+// Check for the cookie and display modal if not present
+const isFirstTimeVisitor = getCookie("firstTimeVisitor");
+if (!isFirstTimeVisitor) {
+  showModal("Important Disclaimer", "Our video database may include content that is NSFW, disturbing, loud, or features flashing lights. If you encounter videos that grossly violate Discord's Terms of Service, please use the 'More Actions' button to report them.<br><br>For videos containing child sexual abuse material (CSAM) or other abusive content, please report this as soon as possible and privately by going here: <a href=\"/encrypt\" class=\"text-blue-400 hover:text-blue-500\">encrypt and report</a>. If you publicly report content that contains child sexual abuse material (CSAM) or other forms of abuse, we will delete your issue to protect the victims involved.", "<button id=\"ageConfirm\" class=\"bg-secondary-button hover:bg-secondary-button-hover text-white py-2 px-4 rounded\" onclick=\"setCookie('legalUser', 'true', 90); this.innerText = '✅'; this.disabled = true;\">I am 18+ years old</button>");
+  setCookie('firstTimeVisitor', 'false', 90);
 }
+
+const enableButton = (buttonId, prevVideoListener) => {
+  document.getElementById(buttonId).disabled = false;
+  if (prevVideoListener) {
+    player.removeEventListener("loadedmetadata", prevVideoListener);
+    player.removeEventListener("error", prevVideoListener);
+  }
+};
 
 // next video logic
 document.getElementById("nextVideo").addEventListener("click", () => {
   document.getElementById("nextVideo").disabled = true;
 
   const nextVideoListener = () => enableButton("nextVideo", nextVideoListener);
+
+  // Add the first video to videoHistory if it's not already there
+  if (videoHistory.length === 0) {
+    videoHistory.push(player.src);
+    sessionStorage.setItem("videoHistory", JSON.stringify(videoHistory));
+  }
 
   if (currentIndex < videoHistory.length - 1) {
     currentIndex++;
@@ -26,8 +39,6 @@ document.getElementById("nextVideo").addEventListener("click", () => {
     fetch("/api/link")
       .then(res => res.text())
       .then(line => {
-        // No need to push the current player.src into videoHistory again
-        // Only push the new video URL
         videoHistory.push(line);
         currentIndex++;
 
@@ -45,26 +56,27 @@ document.getElementById("nextVideo").addEventListener("click", () => {
 
 // previous video logic
 document.getElementById("prevVideo").addEventListener("click", () => {
-  document.getElementById("prevVideo").disabled = true;
-
   const prevVideoListener = () => enableButton("prevVideo", prevVideoListener);
 
   if (currentIndex > 0) {
+    // disable the button and proceed
+    document.getElementById("prevVideo").disabled = true;
+
     currentIndex--;
     player.src = videoHistory[currentIndex];
+
+    player.addEventListener("loadedmetadata", prevVideoListener);
+    player.addEventListener("error", prevVideoListener);
   } else {
-    // If already at the start, enable the button
-    enableButton("prevVideo");
+    // If already at the start, enable the button and remove stale event listeners
+    enableButton("prevVideo", prevVideoListener);
     return;
   }
-
-  player.addEventListener("loadedmetadata", prevVideoListener);
-  player.addEventListener("error", prevVideoListener);
 });
 
 // info button logic
 document.querySelector("button:nth-child(2)").addEventListener("click", () => {
-  showModal("Information about this site:", "This site uses CDN links that have been gathered from Discord channels. They have been submitted by random users, because of this we are not responsible for what videos show up on your screen.");
+  showModal("Information about this site:", "This site uses CDN links that have been gathered from Discord channels. They have been submitted by random users, because of this we are not responsible for what videos show up on your screen.", null);
 });
 document.getElementById("closeModal").addEventListener("click", () => {
   document.getElementById("infoModal").classList.add("hidden");
@@ -88,6 +100,26 @@ document.getElementById("viewHistory").addEventListener("click", () => {
       <button id="reportLink" class="bg-danger-button hover:bg-danger-button-hover text-white py-2 px-4 rounded" onclick="window.open('https://github.com/TubeCord/database/issues/new?labels=report&title=[REPORT]%20Bad%20Link&body=Link:%20${ player.src }%0AWhy%20this%20link%20is%20bad:%20');">Report Link</button>
     </div>
   `);
+});
+
+// download button logic
+document.getElementById("downloadVideo").addEventListener("click", () => {
+  const videoSrc = player.src;
+
+  // try opening in a new tab
+  const newWindow = window.open(videoSrc);
+
+  // fallback to creating an anchor tag for download if pop-up is blocked
+  if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
+    const a = document.createElement('a');
+    a.style.display = 'none';
+    a.href = videoSrc;
+    a.download = videoSrc.split("/").pop() || "tubecord_video.mp4";
+
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  }
 });
 
 // error function to show error message & show error message if video is a .mov file
@@ -118,6 +150,33 @@ function showModal(title, message, extraContent) {
   if (extraContent || extraContent === null) document.getElementById("extraContent").innerHTML = extraContent;
   document.getElementById("infoModal").classList.remove("hidden");
 }
+
+// function to get a cookie by name
+function getCookie(name) {
+  const cookieArr = document.cookie.split('; ');
+
+  for (let i = 0; i < cookieArr.length; i++) {
+    const cookiePair = cookieArr[i].split('=');
+
+    if (name == cookiePair[0]) {
+      return decodeURIComponent(cookiePair[1]);
+    }
+  }
+  return null;
+};
+
+// function to set a cookie
+function setCookie(name, value, days) {
+  let expires = '';
+
+  if (days) {
+    const date = new Date();
+    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+    expires = '; expires=' + date.toUTCString();
+  }
+
+  document.cookie = name + '=' + encodeURIComponent(value) + expires + '; path=/';
+};
 
 // debug shit
 function setDummyLinks(confirm) {

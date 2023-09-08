@@ -2,8 +2,6 @@ const express = require('express');
 const ejs = require('ejs');
 const fetch = require('node-fetch');
 const config = require('./config.json');
-const package = require('./package.json');
-const {execSync} = require('child_process');
 
 const app = express();
 // set the view engine to ejs
@@ -19,7 +17,8 @@ app.get('/', (req, res) => {
 
     res.render('index', {
       name: config.NAME,
-      version: commitHash.substring(0, 7) || 'unknown',
+      slogan: config.SLOGAN,
+      version: commitHash?.substring(0, 7) || 'unknown',
       link: link,
       videoFormat: videoFormat,
       pageContent: config.PAGE_CONTENT,
@@ -29,7 +28,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/dummy/*', (req, res) => {
-  res.sendFile(`${__dirname}/assets/videos/dummyvideo.mp4`);
+  res.sendFile(`${ __dirname }/assets/videos/dummyvideo.mp4`);
 });
 
 app.get('/api/link', (req, res) => {
@@ -45,17 +44,24 @@ app.get('/api/check-video', async (req, res) => {
     const response = await fetch(videoUrl, {method: 'HEAD'});
     const mimeType = response.headers.get('Content-Type');
 
-    if (mimeType === 'video/quicktime') {
-      return res.json({
-        error: "Uh oh!",
-        message: "This .mov file may not play depending on its encoding. If it doesn't play, try using Safari or downloading the video to your device."
-      });
-    } else if (mimeType !== 'video/mp4' && mimeType !== 'video/webm' && !mimeType && response.status !== 200) {
+    if ((mimeType !== 'video/mp4' && mimeType !== 'video/webm' && !mimeType) || response.status !== 200) {
       return res.json({
         error: "Video unavailable",
-        message: `Unfortunately, this video has either been deleted or is not supported on your device. Video format: ${ mimeType } (HTTP status code: ${ response.status }))`
+        message: `Unfortunately, this video has either been deleted or is not supported on your device. Received mimeType: ${ mimeType } (HTTP status code: ${ response.status })`
       });
     }
+
+    // if (mimeType === 'video/quicktime') {
+    //   return res.json({
+    //     error: "Uh oh!",
+    //     message: "This .mov file may not play depending on its encoding. If it doesn't play, try using Safari or downloading the video to your device."
+    //   });
+    // } else if ((mimeType !== 'video/mp4' && mimeType !== 'video/webm' && !mimeType) || response.status !== 200) {
+    //   return res.json({
+    //     error: "Video unavailable",
+    //     message: `Unfortunately, this video has either been deleted or is not supported on your device. Received mimeType: ${ mimeType } (HTTP status code: ${ response.status })`
+    //   });
+    // }
 
     return res.json({success: true});
 

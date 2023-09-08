@@ -14,108 +14,113 @@
   <script src="/assets/js/tailwind-config.js"></script>
 </head>
 
-<body class="p-3 relative bg-primary-dark hide-scrollbar">
-  <!-- Top Buttons -->
-  <div class="flex justify-between mb-4">
-    <% ['left', 'right'].forEach(function(position) { %>
-    <% if (pageContent.buttons.topRow[position].link) { %>
-    <a href="<%= pageContent.buttons.topRow[position].link %>" target="_blank">
-      <button class="bg-secondary-button hover:bg-secondary-button-hover transition duration-150 text-white py-2 px-4 rounded">
-        <%= pageContent.buttons.topRow[position].text %>
-      </button>
-    </a>
-    <% } else { %>
-    <button class="bg-secondary-button hover:bg-secondary-button-hover transition duration-150 text-white py-2 px-4 rounded">
-      <%= pageContent.buttons.topRow[position].text %>
-    </button>
-    <% } %>
-    <% }) %>
-  </div>
-  <!-- Main Content -->
-  <div class="flex flex-col items-center gap-10 h-full mb-16">
-    <!-- Logo Section -->
-    <div class="flex flex-col items-center gap-1">
-      <img src="/assets/images/logo.png" title="<%= name %> logo" alt="<%= name %> logo" draggable="false" class="mx-auto rounded-full w-24 md:w-1/5">
-      <h2 class="text-2xl text-white font-primary-font">
-        <%= name %>
-      </h2>
-    </div>
-    <!-- Video and Error Section -->
-    <div class="flex flex-col items-center w-full md:w-7/12 2xl:w-5/12">
-      <div id="errorCard" class="mb-2 error-card hidden">
-        <i onclick="document.getElementById('errorCard').classList.add('hidden')" style="cursor:pointer;float:right;" class="fas fa-times"></i>
-        <h3 id="errorTitle" class="text-lg"></h3>
-        <div id="errorMessage"></div>
-      </div>
-      <div class="video-wrapper">
-        <video id="player" class="video-player" controls preload="auto" playsinline src="<%= link %>" type="<%= videoFormat %>">
-          <p>To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
-        </video>
-      </div>
-
-      <!-- Buttons Container -->
-      <div class="flex justify-between w-full mt-4 mb-2">
-        <!-- Left Column -->
-        <div class="flex flex-col space-y-4">
-          <button class="bg-primary-button hover:bg-primary-button-hover text-white transition duration-150 py-2 px-6 md:w-56 lg:w-52 rounded" id="prevVideo">
-            <%= pageContent.buttons.videoControls['1L'] %>
-          </button>
-          <button class="bg-primary-button hover:bg-primary-button-hover text-white transition duration-150 py-2 px-6 md:w-56 lg:w-52 rounded" id="viewHistory">
-            <%= pageContent.buttons.videoControls['2L'] %>
-          </button>
-        </div>
-        <!-- Right Column -->
-        <div class="flex flex-col space-y-4">
-          <button class="bg-primary-button hover:bg-primary-button-hover text-white transition duration-150 py-2 px-6 md:w-56 lg:w-52 rounded" id="nextVideo">
-            <%= pageContent.buttons.videoControls['1R'] %>
-          </button>
-          <button class="bg-primary-button hover:bg-primary-button-hover text-white transition duration-150 py-2 px-6 md:w-56 lg:w-52 rounded" id="downloadVideo">
-            <%= pageContent.buttons.videoControls['2R'] %>
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- Bottom Buttons -->
-  <div class="flex justify-between items-center bottom-0 p-3">
-    <% ['left', 'right'].forEach(function(position, index) { %>
-    <div>
-      <% if (pageContent.buttons.bottomRow[position].link) { %>
-      <a href="<%= pageContent.buttons.bottomRow[position].link %>" target="_blank">
+<body class="bg-primary-dark hide-scrollbar">
+  <main class="p-3">
+    <!-- Top Buttons -->
+    <div class="flex justify-between mb-4">
+      <% ['left', 'right'].forEach(function(position) { %>
+      <% if (pageContent.buttons.topRow[position].link) { %>
+      <a href="<%= pageContent.buttons.topRow[position].link %>" target="_blank">
         <button class="bg-secondary-button hover:bg-secondary-button-hover transition duration-150 text-white py-2 px-4 rounded">
-          <%= pageContent.buttons.bottomRow[position].text %>
+          <%= pageContent.buttons.topRow[position].text %>
         </button>
       </a>
       <% } else { %>
       <button class="bg-secondary-button hover:bg-secondary-button-hover transition duration-150 text-white py-2 px-4 rounded">
-        <%= pageContent.buttons.bottomRow[position].text %>
+        <%= pageContent.buttons.topRow[position].text %>
       </button>
       <% } %>
+      <% }) %>
     </div>
-    <% if(index === 0) { %>
-      <div class="flex justify-center absolute bottom-0 w-full">
-        <p style="color: rgba(255, 255, 255, 0.35);" class="text-center sm:text-left">Made With ❤️ By Spinfal and TomerGamerTV</p>
+    <!-- Main Content -->
+    <div class="flex flex-col items-center gap-10 h-full mb-16">
+      <!-- Logo Section -->
+      <div class="flex flex-col items-center gap-1">
+        <img src="<%= pageContent.logo %>" title="<%= name %> logo" alt="<%= name %> logo" draggable="false" class="mx-auto rounded-full w-24 md:w-1/5">
+        <h2 class="text-2xl text-white font-primary-font">
+          <%= name %>
+        </h2>
+        <h4 class="text-white font-primary-font opacity-100">
+          <%= slogan %>
+        </h4>
       </div>
-    <% } %>
-    <% }) %>
-  </div>
-<!-- modal -->
-<div id="infoModal" class="fixed inset-0 flex items-center justify-center p-4 hidden">
-  <div class="absolute inset-0 bg-black opacity-50"></div>
-  <div class="bg-primary-dark text-slate-100 w-full md:w-2/3 lg:w-1/2 p-5 rounded shadow-lg relative z-10 overflow-y-auto">
-    <button id="closeModal" class="absolute top-2 right-3">
-      <i class="fas fa-times"></i>
-    </button>
-    <div class="flex flex-col gap-3">
-      <h2 id="modalTitle" class="text-2xl"></h2>
-      <div id="modalMessageWrapper" class="tracking-wide overflow-y-auto max-h-[50vh]">
-        <p id="modalMessage"></p>
-      </div>
-    </div>
-    <div class="mt-6" id="extraContent"></div>
-  </div>
-</div>
+      <!-- Video and Error Section -->
+      <div class="flex flex-col items-center w-full md:w-7/12 2xl:w-5/12">
+        <div id="errorCard" class="mb-2 error-card hidden">
+          <i onclick="document.getElementById('errorCard').classList.add('hidden')" style="cursor:pointer;float:right;" class="fas fa-times"></i>
+          <h3 id="errorTitle" class="text-lg"></h3>
+          <div id="errorMessage"></div>
+        </div>
+        <div class="video-wrapper">
+          <video id="player" class="video-player" controls preload="auto" playsinline src="<%= link %>" type="<%= videoFormat %>">
+            <p>To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+          </video>
+        </div>
 
+        <!-- Buttons Container -->
+        <div class="flex justify-between w-full mt-4 mb-2 md:mb-auto">
+          <!-- Left Column -->
+          <div class="flex flex-col space-y-4">
+            <button class="bg-primary-button hover:bg-primary-button-hover text-white transition duration-150 py-2 px-6 md:w-56 lg:w-52 rounded" id="prevVideo">
+              <%= pageContent.buttons.videoControls['1L'] %>
+            </button>
+            <button class="bg-primary-button hover:bg-primary-button-hover text-white transition duration-150 py-2 px-6 md:w-56 lg:w-52 rounded" id="viewHistory">
+              <%= pageContent.buttons.videoControls['2L'] %>
+            </button>
+          </div>
+          <!-- Right Column -->
+          <div class="flex flex-col space-y-4">
+            <button class="bg-primary-button hover:bg-primary-button-hover text-white transition duration-150 py-2 px-6 md:w-56 lg:w-52 rounded" id="nextVideo">
+              <%= pageContent.buttons.videoControls['1R'] %>
+            </button>
+            <button class="bg-primary-button hover:bg-primary-button-hover text-white transition duration-150 py-2 px-6 md:w-56 lg:w-52 rounded" id="downloadVideo">
+              <%= pageContent.buttons.videoControls['2R'] %>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Bottom Buttons -->
+    <div class="flex justify-between items-center bottom-0 p-3">
+      <% ['left', 'right'].forEach(function(position, index) { %>
+      <div>
+        <% if (pageContent.buttons.bottomRow[position].link) { %>
+        <a href="<%= pageContent.buttons.bottomRow[position].link %>" target="_blank">
+          <button class="bg-secondary-button hover:bg-secondary-button-hover transition duration-150 text-white py-2 px-4 rounded">
+            <%= pageContent.buttons.bottomRow[position].text %>
+          </button>
+        </a>
+        <% } else { %>
+        <button class="bg-secondary-button hover:bg-secondary-button-hover transition duration-150 text-white py-2 px-4 rounded">
+          <%= pageContent.buttons.bottomRow[position].text %>
+        </button>
+        <% } %>
+      </div>
+      <% }) %>
+    </div>
+  </main>
+  <!-- Footer -->
+  <div class="flex justify-center w-full -my-3">
+    <div class="w-full text-center">
+      <p class="text-slate-50/50"><%- pageContent.footer.text %></p>
+    </div>
+  </div>
+  <!-- modal -->
+  <div id="infoModal" class="fixed inset-0 flex items-center justify-center p-4 hidden">
+    <div class="absolute inset-0 bg-black opacity-50"></div>
+    <div class="bg-primary-dark text-slate-100 w-full md:w-2/3 lg:w-1/2 p-5 rounded shadow-lg relative z-10 overflow-y-auto">
+      <button id="closeModal" class="absolute top-2 right-3">
+        <i class="fas fa-times"></i>
+      </button>
+      <div class="flex flex-col gap-3">
+        <h2 id="modalTitle" class="text-2xl"></h2>
+        <div id="modalMessageWrapper" class="tracking-wide overflow-y-auto max-h-[50vh]">
+          <p id="modalMessage"></p>
+        </div>
+      </div>
+      <div class="mt-6" id="extraContent"></div>
+    </div>
+  </div>
 
   <script src="/assets/js/index.js?v=<%= Math.floor(Math.random() * 999) %>"></script>
   <script defer>

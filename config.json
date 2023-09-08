@@ -1,9 +1,10 @@
 {
   "NAME": "TubeCord",
-  "URL": "localhost",
+  "SLOGAN": "Russian Roulette But With Discord Videos",
+  "HOST": "localhost",
   "PORT": 443,
   "PAGE_CONTENT": {
-    "logo": "/assets/images/video_poster.jpg",
+    "logo": "/assets/images/logo.png",
     "buttons": {
       "topRow": {
         "left": {
@@ -30,6 +31,9 @@
           "link": "https://github.com/TubeCord"
         }
       }
+    },
+    "footer": {
+      "text": "Made With <span class=\"hover:animate-pulse\">❤️</span> By <a href=\"https://out.spin.rip/home\" class=\"text-blue-400 hover:text-blue-500\">spin</a> and <a href=\"https://tomergamertvfire.web.app/\" class=\"text-blue-400 hover:text-blue-500\">TomerGamerTV</a>"
     },
     "dialog": {
       "_MOVED": "see: /assets/js/index.js"
