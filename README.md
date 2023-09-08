@@ -49,7 +49,7 @@
 
 A website that will fetch random Discord CDN links from our database, and play it inside a website.
 
-## :folded_hands: Donating ##
+## 🙏🏻 Donating ##
 
 This whole project was built by only 2 people on their free time, if you want to support us you can do it by donating on our ko-fi profiles:
 
