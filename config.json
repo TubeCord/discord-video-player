@@ -2,7 +2,7 @@
   "NAME": "TubeCord",
   "SLOGAN": "Russian Roulette But With Discord Videos",
   "HOST": "localhost",
-  "PORT": 443,
+  "PORT": 3000,
   "PAGE_CONTENT": {
     "logo": "/assets/images/logo.png",
     "buttons": {

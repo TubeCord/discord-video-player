@@ -39,11 +39,12 @@ document.getElementById("nextVideo").addEventListener("click", () => {
     fetch("/api/link")
       .then(res => res.text())
       .then(line => {
-        videoHistory.push(line);
+        const proxied = '/stream?url=' + encodeURIComponent(line);
+        videoHistory.push(proxied);
         currentIndex++;
 
-        player.src = line;
-        checkVideo(line);
+        player.src = proxied;
+        checkVideo(proxied);
         sessionStorage.setItem("videoHistory", JSON.stringify(videoHistory));
         console.log("New video:", line);
         console.log("Video history:", videoHistory);
@@ -203,3 +204,7 @@ function setDummyLinks(confirm) {
     return console.log('Something went wrong while setting the dummy links :(');
   }
 }
+// surface playback errors to user
+player.addEventListener('error', () => {
+  error('Playback Error', 'This video cannot be played due to Discord CDN restrictions or network issues. Try Next Video or reload.');
+});

@@ -86,7 +86,7 @@ $ pnpm install
 # Run the project
 $ pnpm start
 
-# The server will initialize @ <http://localhost:443>
+# The server will initialize @ <http://localhost:5173>
 ```
 
 ## :passport_control: Contributing ##
@@ -117,6 +117,25 @@ Please note that we are not responsible for the links submitted by the users or 
 We provide a platform for users to share and view video links, but we do not have control over the content of those links. Users should exercise caution and report any links that contain illegal material or grossly violate Discord's ToS.
 
 Additionally, we cannot guarantee the availability or functionality of the links submitted. Broken or outdated links may occasionally be present, and users should report any broken links they encounter.
+
+## Setup Notes (Discord CDN Proxy)
+
+- This app streams Discord CDN attachments through an internal proxy endpoint (`/stream`) to work around recent restrictions on hotlinking and cross-site playback.
+- No Discord account tokens are required or used.
+- Only `cdn.discordapp.com` and `media.discordapp.net` URLs are allowed.
+
+### Local Database
+
+- Random video selection reads from `../database/discord_cdn_links.txt` relative to the project root.
+- If the local file cannot be read, the app falls back to the GitHub list.
+
+### Range/Seeking Support
+
+- The proxy forwards `Range` requests so browser seeking remains functional.
+
+### Error Handling
+
+- When a video cannot be played due to CDN or network issues, a clear message is shown and you can skip to the next video.
 
 **Limitation of Liability**: By using our website and accessing the links shared by other users, you acknowledge and agree that you assume all risks and responsibilities associated with the content and usage of those links.
 
