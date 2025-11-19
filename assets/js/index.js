@@ -43,10 +43,20 @@ function handleAgeConfirm(btn) {
 }
 
 // Close modal when clicking outside
+// Close modal when clicking outside
 window.addEventListener('click', (e) => {
   const modal = document.getElementById('infoModal');
   if (e.target === modal) {
-    modal.classList.add('hidden');
+    // Fade out animation
+    modal.classList.remove('opacity-100');
+    modal.classList.add('opacity-0');
+
+    setTimeout(() => {
+      modal.classList.add('hidden');
+      // Reset for next time
+      modal.classList.remove('opacity-0');
+      modal.classList.add('opacity-100');
+    }, 500);
   }
 });
 
@@ -227,9 +237,9 @@ function checkVideo(videoUrl) {
       if (data.error) {
         // Only show error if the player hasn't started playing yet
         if (player.paused && player.readyState < 3) {
-          errorTitle.innerText = data.error;
-          errorMessage.innerText = data.message;
-          errorCard.classList.remove('hidden');
+          // errorTitle.innerText = data.error;
+          // errorMessage.innerText = data.message;
+          // errorCard.classList.remove('hidden');
         }
       } else {
         errorCard.classList.add('hidden');

@@ -28,11 +28,11 @@
   </style>
 </head>
 
-<body class="bg-primary-dark hide-scrollbar">
+<body class="bg-primary-dark hide-scrollbar min-h-screen flex flex-col">
   <!-- Three.js Canvas Background -->
   <canvas id="three-canvas"></canvas>
 
-  <main class="p-3 relative z-10">
+  <main class="p-3 relative z-10 flex-grow flex flex-col justify-center">
     <!-- Top Buttons -->
     <div class="flex justify-between mb-4">
       <% ['left', 'right' ].forEach(function(position) { %>
