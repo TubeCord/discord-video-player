@@ -54,7 +54,7 @@ A website that will fetch random Discord CDN links from our database, and play i
 This whole project was built by only 2 people on their free time, if you want to support us you can do it by donating on our ko-fi profiles:
 
 - [TomerGamerTV](https://feds.lol/TomerGamerTV)
-- [spinfal](https://ko-fi.com/spinn)
+- [spinfal](https://buymeacoffee.com/spinn)
 
 If you would like to support the development like website hosting and domain name you can do that by donating to TomerGamerTV and mentioning that this is a donation for this project.
 
