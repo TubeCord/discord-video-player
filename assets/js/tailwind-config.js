@@ -18,7 +18,7 @@ tailwind.config = {
         "ring": "#5865f2",
       },
       fontFamily: {
-        'primary-font': ['Inter', 'sans-serif']
+        'primary-font': ['FredokaOne', 'sans-serif']
       }
     },
   },

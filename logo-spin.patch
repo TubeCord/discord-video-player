@@ -1,0 +1,42 @@
+diff --git a/assets/js/index.js b/assets/js/index.js
+index a7b5365..newversion 100644
+--- a/assets/js/index.js
++++ b/assets/js/index.js
+@@ -300,5 +300,31 @@ function setDummyLinks(confirm) {
+ // surface playback errors to user
+ player.addEventListener('error', () => {
+   error('Playback Error', 'This video cannot be played due to Discord CDN restrictions or network issues. Try Next Video or reload.');
+ });
+ 
++// Logo spin easter egg - Chrome-like animation
++const logo = document.querySelector('img[alt*="logo"]');
++if (logo) {
++  let lastClickTime = 0;
++  
++  logo.addEventListener('click', () => {
++    const currentTime = Date.now();
++    const timeDiff = currentTime - lastClickTime;
++    
++    // Double-click detected (within 500ms)
++    if (timeDiff < 500 && timeDiff > 0) {
++      // Single 360° rotation with Chrome-like easing (fast start, gradual slowdown)
++      logo.style.transition = 'transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
++      logo.style.transform = 'rotate(360deg)';
++      
++      // Reset rotation after animation completes
++      setTimeout(() => {
++        logo.style.transition = 'none';
++        logo.style.transform = 'rotate(0deg)';
++        
++        // Re-enable transition for next time
++        setTimeout(() => {
++          logo.style.transition = 'transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
++        }, 10);
++      }, 1200);
++      
++      lastClickTime = 0; // Reset to prevent triple-click issues
++    } else {
++      lastClickTime = currentTime;
++    }
++  });
++}

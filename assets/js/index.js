@@ -143,7 +143,7 @@ document.getElementById("closeModal").addEventListener("click", () => {
 // Extract the original CDN URL from the proxied URL
 function getDirectUrl(proxiedUrl) {
   try {
-    const url = new URL(proxiedUrl);
+    const url = proxiedUrl.includes('://') ? new URL(proxiedUrl) : new URL(proxiedUrl, window.location.origin);
     const originalUrl = url.searchParams.get('url');
     return originalUrl || proxiedUrl;
   } catch {
@@ -164,7 +164,11 @@ document.getElementById("viewHistory").addEventListener("click", () => {
       console.log("Failed to copy URL: ", err);
     });
 
-  showModal("Video Actions", `<span class="text-green-300">Current link copied!</span> ${videoHistory.length ? `Here's your history:<br><br>${videoHistory.map((link) => `<a href="${link}" target="_blank" class="text-blue-300 hover:text-blue-200">${link.split("/").pop()}</a>`).join("<br>")}` : "Your history is unavailable, try watching some videos first!"}`, `
+  showModal("Video Actions", `<span class="text-green-300">Current link copied!</span> ${videoHistory.length ? `Here's your history:<br><br>${videoHistory.map((link) => {
+    const directUrl = getDirectUrl(link);
+    const filename = decodeURIComponent(directUrl).split("/").pop().split("?")[0];
+    return `<a href="${directUrl}" target="_blank" class="text-blue-300 hover:text-blue-200">${filename}</a>`;
+  }).join("<br>")}` : "Your history is unavailable, try watching some videos first!"}`, `
     <div class="flex gap-2">
       <button id="clearHistory" class="bg-secondary-button hover:bg-secondary-button-hover text-white py-2 px-4 rounded" onclick="sessionStorage.removeItem('videoHistory'); videoHistory = []; currentIndex = 0; showModal('Success', 'Your watch history has been cleared!', null);">Clear History</button>
       <button id="reportLink" class="bg-danger-button hover:bg-danger-button-hover text-white py-2 px-4 rounded" onclick="window.open('https://github.com/TubeCord/database/issues/new?labels=report&title=[REPORT]%20Bad%20Link&body=Link:%20${player.src}%0AWhy%20this%20link%20is%20bad:%20');">Report Link</button>

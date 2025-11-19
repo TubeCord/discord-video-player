@@ -11,13 +11,28 @@
   <link rel="icon" type="image/png" href="/assets/images/logo.png">
 
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
   <link rel="stylesheet" href="/assets/css/index.css" />
   <script src="/assets/js/tailwind-config.js"></script>
+  <style>
+    #three-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -1;
+      pointer-events: none;
+    }
+  </style>
 </head>
 
 <body class="bg-primary-dark hide-scrollbar">
-  <main class="p-3">
+  <!-- Three.js Canvas Background -->
+  <canvas id="three-canvas"></canvas>
+
+  <main class="p-3 relative z-10">
     <!-- Top Buttons -->
     <div class="flex justify-between mb-4">
       <% ['left', 'right' ].forEach(function(position) { %>
@@ -41,7 +56,7 @@
       <!-- Logo Section -->
       <div class="flex flex-col items-center gap-1">
         <img src="<%= pageContent.logo %>" title="<%= name %> logo" alt="<%= name %> logo" draggable="false"
-          class="mx-auto rounded-full w-24 md:w-1/5">
+          class="mx-auto rounded-full w-24 md:w-1/5 cursor-pointer">
         <h2 class="text-2xl text-white font-primary-font">
           <%= name %>
         </h2>
@@ -118,14 +133,14 @@
     </div>
   </main>
   <!-- Footer -->
-  <div class="flex justify-center w-full -my-3">
+  <div class="flex justify-center w-full py-2">
     <div class="w-full text-center">
       <p class="text-slate-50/50"><%- pageContent.footer.text %></p>
     </div>
   </div>
   <!-- modal -->
   <div id="infoModal"
-    class="fixed inset-0 flex items-center justify-center p-4 hidden transition-opacity duration-500 ease-in-out opacity-100"
+    class="fixed inset-0 flex items-center justify-center p-4 hidden transition-opacity duration-500 ease-in-out opacity-100 z-50"
     style="background-color: rgba(0, 0, 0, 0.6); backdrop-filter: blur(4px);">
     <div
       class="bg-primary-dark text-slate-100 w-full md:w-2/3 lg:w-1/2 p-5 rounded shadow-lg relative z-10 overflow-y-auto"
@@ -142,6 +157,68 @@
       <div class="mt-6" id="extraContent"></div>
     </div>
   </div>
+
+  <!-- Three.js Background Script -->
+  <script>
+    // Three.js particle background
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('three-canvas'), alpha: true, antialias: true });
+
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(window.devicePixelRatio);
+    camera.position.z = 50;
+
+    // Create particles
+    const particlesGeometry = new THREE.BufferGeometry();
+    const particlesCount = 1500;
+    const posArray = new Float32Array(particlesCount * 3);
+
+    for (let i = 0; i < particlesCount * 3; i++) {
+      posArray[i] = (Math.random() - 0.5) * 150;
+    }
+
+    particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+
+    const particlesMaterial = new THREE.PointsMaterial({
+      size: 0.3,
+      color: 0x5865f2,
+      transparent: true,
+      opacity: 0.6,
+      blending: THREE.AdditiveBlending
+    });
+
+    const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+    scene.add(particlesMesh);
+
+    // Animation
+    let mouseX = 0;
+    let mouseY = 0;
+
+    document.addEventListener('mousemove', (event) => {
+      mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+      mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+    });
+
+    function animate() {
+      requestAnimationFrame(animate);
+
+      particlesMesh.rotation.y += 0.0005;
+      particlesMesh.rotation.x = mouseY * 0.05;
+      particlesMesh.rotation.y += mouseX * 0.0005;
+
+      renderer.render(scene, camera);
+    }
+
+    animate();
+
+    // Handle window resize
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+  </script>
 
   <script src="/assets/js/index.js?v=<%= Math.floor(Math.random() * 999) %>"></script>
   <script defer>
