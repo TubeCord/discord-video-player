@@ -10,9 +10,15 @@ tailwind.config = {
         "secondary-button-hover": "#6D6F78",
         "danger-button": "#da373c",
         "danger-button-hover": "#A12828",
+        // Shadcn-like tokens mapped to Discord colors
+        "card": "#2b2d31",
+        "card-foreground": "#dbdee1",
+        "border": "#1e1f22",
+        "input": "#1e1f22",
+        "ring": "#5865f2",
       },
       fontFamily: {
-        'primary-font': ['FredokaOne', 'sans'] /* 'sans' is a fallback font 😮*/
+        'primary-font': ['Inter', 'sans-serif']
       }
     },
   },

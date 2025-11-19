@@ -5,7 +5,9 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><%= name %></title>
+  <title>
+    <%= name %>
+  </title>
   <link rel="icon" type="image/png" href="/assets/images/logo.png">
 
   <script src="https://cdn.tailwindcss.com"></script>
@@ -18,25 +20,28 @@
   <main class="p-3">
     <!-- Top Buttons -->
     <div class="flex justify-between mb-4">
-      <% ['left', 'right'].forEach(function(position) { %>
-      <% if (pageContent.buttons.topRow[position].link) { %>
-      <a href="<%= pageContent.buttons.topRow[position].link %>" target="_blank">
-        <button class="bg-secondary-button hover:bg-secondary-button-hover transition duration-150 text-white py-2 px-4 rounded">
-          <%= pageContent.buttons.topRow[position].text %>
-        </button>
-      </a>
-      <% } else { %>
-      <button class="bg-secondary-button hover:bg-secondary-button-hover transition duration-150 text-white py-2 px-4 rounded">
-        <%= pageContent.buttons.topRow[position].text %>
-      </button>
-      <% } %>
-      <% }) %>
+      <% ['left', 'right' ].forEach(function(position) { %>
+        <% if (pageContent.buttons.topRow[position].link) { %>
+          <a href="<%= pageContent.buttons.topRow[position].link %>" target="_blank">
+            <button
+              class="bg-secondary-button hover:bg-secondary-button-hover transition duration-150 text-white py-2 px-4 rounded">
+              <%= pageContent.buttons.topRow[position].text %>
+            </button>
+          </a>
+          <% } else { %>
+            <button
+              class="bg-secondary-button hover:bg-secondary-button-hover transition duration-150 text-white py-2 px-4 rounded">
+              <%= pageContent.buttons.topRow[position].text %>
+            </button>
+            <% } %>
+              <% }) %>
     </div>
     <!-- Main Content -->
     <div class="flex flex-col items-center gap-10 h-full mb-16">
       <!-- Logo Section -->
       <div class="flex flex-col items-center gap-1">
-        <img src="<%= pageContent.logo %>" title="<%= name %> logo" alt="<%= name %> logo" draggable="false" class="mx-auto rounded-full w-24 md:w-1/5">
+        <img src="<%= pageContent.logo %>" title="<%= name %> logo" alt="<%= name %> logo" draggable="false"
+          class="mx-auto rounded-full w-24 md:w-1/5">
         <h2 class="text-2xl text-white font-primary-font">
           <%= name %>
         </h2>
@@ -47,13 +52,16 @@
       <!-- Video and Error Section -->
       <div class="flex flex-col items-center w-full md:w-7/12 2xl:w-5/12">
         <div id="errorCard" class="mb-2 error-card hidden">
-          <i onclick="document.getElementById('errorCard').classList.add('hidden')" style="cursor:pointer;float:right;" class="fas fa-times"></i>
+          <i onclick="document.getElementById('errorCard').classList.add('hidden')" style="cursor:pointer;float:right;"
+            class="fas fa-times"></i>
           <h3 id="errorTitle" class="text-lg"></h3>
           <div id="errorMessage"></div>
         </div>
         <div class="video-wrapper">
-          <video id="player" class="video-player" controls preload="auto" playsinline src="/stream?url=<%= encodeURIComponent(link) %>" type="<%= videoFormat %>">
-            <p>To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+          <video id="player" class="video-player" controls preload="auto" playsinline
+            src="/stream?url=<%= encodeURIComponent(link) %>" type="<%= videoFormat %>">
+            <p>To view this video please enable JavaScript, and consider upgrading to a web browser that <a
+                href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
           </video>
         </div>
 
@@ -61,19 +69,27 @@
         <div class="flex justify-between w-full mt-4 mb-2 md:mb-auto">
           <!-- Left Column -->
           <div class="flex flex-col space-y-4">
-            <button class="bg-primary-button hover:bg-primary-button-hover text-white transition duration-150 py-2 px-6 md:w-56 lg:w-52 rounded" id="prevVideo">
+            <button
+              class="bg-primary-button hover:bg-primary-button-hover text-white transition duration-150 py-2 px-6 md:w-56 lg:w-52 rounded"
+              id="prevVideo">
               <%= pageContent.buttons.videoControls['1L'] %>
             </button>
-            <button class="bg-primary-button hover:bg-primary-button-hover text-white transition duration-150 py-2 px-6 md:w-56 lg:w-52 rounded" id="viewHistory">
+            <button
+              class="bg-primary-button hover:bg-primary-button-hover text-white transition duration-150 py-2 px-6 md:w-56 lg:w-52 rounded"
+              id="viewHistory">
               <%= pageContent.buttons.videoControls['2L'] %>
             </button>
           </div>
           <!-- Right Column -->
           <div class="flex flex-col space-y-4">
-            <button class="bg-primary-button hover:bg-primary-button-hover text-white transition duration-150 py-2 px-6 md:w-56 lg:w-52 rounded" id="nextVideo">
+            <button
+              class="bg-primary-button hover:bg-primary-button-hover text-white transition duration-150 py-2 px-6 md:w-56 lg:w-52 rounded"
+              id="nextVideo">
               <%= pageContent.buttons.videoControls['1R'] %>
             </button>
-            <button class="bg-primary-button hover:bg-primary-button-hover text-white transition duration-150 py-2 px-6 md:w-56 lg:w-52 rounded" id="downloadVideo">
+            <button
+              class="bg-primary-button hover:bg-primary-button-hover text-white transition duration-150 py-2 px-6 md:w-56 lg:w-52 rounded"
+              id="downloadVideo">
               <%= pageContent.buttons.videoControls['2R'] %>
             </button>
           </div>
@@ -82,21 +98,23 @@
     </div>
     <!-- Bottom Buttons -->
     <div class="flex justify-between items-center bottom-0 p-3">
-      <% ['left', 'right'].forEach(function(position, index) { %>
-      <div>
-        <% if (pageContent.buttons.bottomRow[position].link) { %>
-        <a href="<%= pageContent.buttons.bottomRow[position].link %>" target="_blank">
-          <button class="bg-secondary-button hover:bg-secondary-button-hover transition duration-150 text-white py-2 px-4 rounded">
-            <%= pageContent.buttons.bottomRow[position].text %>
-          </button>
-        </a>
-        <% } else { %>
-        <button class="bg-secondary-button hover:bg-secondary-button-hover transition duration-150 text-white py-2 px-4 rounded">
-          <%= pageContent.buttons.bottomRow[position].text %>
-        </button>
-        <% } %>
-      </div>
-      <% }) %>
+      <% ['left', 'right' ].forEach(function(position, index) { %>
+        <div>
+          <% if (pageContent.buttons.bottomRow[position].link) { %>
+            <a href="<%= pageContent.buttons.bottomRow[position].link %>" target="_blank">
+              <button
+                class="bg-secondary-button hover:bg-secondary-button-hover transition duration-150 text-white py-2 px-4 rounded">
+                <%= pageContent.buttons.bottomRow[position].text %>
+              </button>
+            </a>
+            <% } else { %>
+              <button
+                class="bg-secondary-button hover:bg-secondary-button-hover transition duration-150 text-white py-2 px-4 rounded">
+                <%= pageContent.buttons.bottomRow[position].text %>
+              </button>
+              <% } %>
+        </div>
+        <% }) %>
     </div>
   </main>
   <!-- Footer -->
@@ -106,9 +124,12 @@
     </div>
   </div>
   <!-- modal -->
-  <div id="infoModal" class="fixed inset-0 flex items-center justify-center p-4 hidden">
-    <div class="absolute inset-0 bg-black opacity-50"></div>
-    <div class="bg-primary-dark text-slate-100 w-full md:w-2/3 lg:w-1/2 p-5 rounded shadow-lg relative z-10 overflow-y-auto">
+  <div id="infoModal"
+    class="fixed inset-0 flex items-center justify-center p-4 hidden transition-opacity duration-500 ease-in-out opacity-100"
+    style="background-color: rgba(0, 0, 0, 0.6); backdrop-filter: blur(4px);">
+    <div
+      class="bg-primary-dark text-slate-100 w-full md:w-2/3 lg:w-1/2 p-5 rounded shadow-lg relative z-10 overflow-y-auto"
+      onclick="event.stopPropagation();">
       <button id="closeModal" class="absolute top-2 right-3">
         <i class="fas fa-times"></i>
       </button>

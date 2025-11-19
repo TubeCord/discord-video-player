@@ -55,7 +55,7 @@ app.get('/api/check-video', async (req, res) => {
     const response = await fetch(absoluteUrl, { method: 'HEAD' });
     const mimeType = response.headers.get('Content-Type');
 
-    if ((mimeType !== 'video/mp4' && mimeType !== 'video/webm' && !mimeType) || response.status !== 200) {
+    if ((mimeType !== 'video/mp4' && mimeType !== 'video/webm' && mimeType !== 'video/quicktime' && mimeType !== 'video/ogg' && !mimeType) || response.status !== 200) {
       return res.json({
         error: "Video unavailable",
         message: `Unfortunately, this video has either been deleted or is not supported on your device. Received mimeType: ${mimeType} (HTTP status code: ${response.status})`
@@ -181,7 +181,9 @@ async function refreshLink(originalUrl) {
   }
 }
 
-async function getRandomLink() {
+async function getRandomLink(retries = 5) {
+  if (retries === 0) return null;
+
   const localListPath = path.resolve(__dirname, '..', 'database', 'discord_cdn_links.txt');
   let link = null;
 
@@ -196,11 +198,25 @@ async function getRandomLink() {
   }
 
   if (link) {
+    // Refresh the link if possible
     const refreshed = await refreshLink(link);
-    if (refreshed) return refreshed;
-    return null;
+    const finalLink = refreshed || link;
+
+    // Verify the link works before returning
+    try {
+      const response = await fetch(finalLink, { method: 'HEAD' });
+      if (response.ok) {
+        return finalLink;
+      } else {
+        console.warn(`Link ${finalLink} returned ${response.status}. Retrying...`);
+        return getRandomLink(retries - 1);
+      }
+    } catch (err) {
+      console.warn(`Error checking link ${finalLink}: ${err}. Retrying...`);
+      return getRandomLink(retries - 1);
+    }
   }
-  return null;
+  return getRandomLink(retries - 1);
 }
 
 function isAllowedDiscordUrl(url) {
