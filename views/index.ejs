@@ -29,7 +29,7 @@
             </button>
           </a>
           <% } else { %>
-            <button
+            <button id="<%= position === 'right' ? 'infoButton' : '' %>"
               class="bg-secondary-button hover:bg-secondary-button-hover transition duration-150 text-white py-2 px-4 rounded">
               <%= pageContent.buttons.topRow[position].text %>
             </button>
@@ -37,7 +37,7 @@
               <% }) %>
     </div>
     <!-- Main Content -->
-    <div class="flex flex-col items-center gap-10 h-full mb-16">
+    <div class="flex flex-col items-center gap-10 h-full mb-4">
       <!-- Logo Section -->
       <div class="flex flex-col items-center gap-1">
         <img src="<%= pageContent.logo %>" title="<%= name %> logo" alt="<%= name %> logo" draggable="false"
@@ -45,7 +45,7 @@
         <h2 class="text-2xl text-white font-primary-font">
           <%= name %>
         </h2>
-        <h4 class="text-white font-primary-font opacity-100">
+        <h4 class="text-white opacity-100">
           <%= slogan %>
         </h4>
       </div>

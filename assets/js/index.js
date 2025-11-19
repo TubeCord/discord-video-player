@@ -140,13 +140,25 @@ document.getElementById("closeModal").addEventListener("click", () => {
   document.getElementById("infoModal").classList.add("hidden");
 });
 
+// Extract the original CDN URL from the proxied URL
+function getDirectUrl(proxiedUrl) {
+  try {
+    const url = new URL(proxiedUrl);
+    const originalUrl = url.searchParams.get('url');
+    return originalUrl || proxiedUrl;
+  } catch {
+    return proxiedUrl;
+  }
+}
+
 // button to view history and copy link logic
 document.getElementById("viewHistory").addEventListener("click", () => {
   console.log("Video history:", videoHistory);
 
-  navigator.clipboard.writeText(player.src)
+  const directUrl = getDirectUrl(player.src);
+  navigator.clipboard.writeText(directUrl)
     .then(() => {
-      console.log("URL successfully copied to clipboard!", player.src);
+      console.log("URL successfully copied to clipboard!", directUrl);
     })
     .catch(err => {
       console.log("Failed to copy URL: ", err);
