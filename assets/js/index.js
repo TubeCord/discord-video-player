@@ -59,11 +59,13 @@ function handleAgeConfirm(btn) {
 }
 
 // Close modal when clicking outside
-window.addEventListener('click', (e) => {
-  if (e.target === modal) {
-    hideModal();
-  }
-});
+if (modal) {
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      hideModal();
+    }
+  });
+}
 
 const enableButton = (buttonId, prevVideoListener) => {
   const button = document.getElementById(buttonId);
@@ -316,24 +318,17 @@ player.addEventListener('error', () => {
 // Logo spin easter egg - Chrome-like animation
 const logo = document.querySelector('img[alt*="logo"]');
 if (logo) {
-  let lastClickTime = 0;
   let rotation = 0;
-  const spinDuration = 1200;
+  const spinDuration = 800;
   const spinEasing = 'cubic-bezier(0.25, 0.46, 0.45, 0.94)';
 
   logo.style.transition = `transform ${spinDuration}ms ${spinEasing}`;
+  logo.style.userSelect = 'none';
+  logo.setAttribute('draggable', 'false');
+  logo.addEventListener('dragstart', (e) => e.preventDefault());
 
-  logo.addEventListener('click', () => {
-    const currentTime = Date.now();
-    const timeDiff = currentTime - lastClickTime;
-
-    // Double-click detected (within 500ms)
-    if (timeDiff > 0 && timeDiff < 500) {
-      rotation += 360;
-      logo.style.transform = `rotate(${rotation}deg)`;
-      lastClickTime = 0;
-    } else {
-      lastClickTime = currentTime;
-    }
+  logo.addEventListener('dblclick', () => {
+    rotation += 360;
+    logo.style.transform = `rotate(${rotation}deg)`;
   });
 }
