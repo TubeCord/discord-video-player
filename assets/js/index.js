@@ -5,6 +5,44 @@ const errorTitle = document.getElementById("errorTitle");
 const errorMessage = document.getElementById("errorMessage");
 let currentIndex = 0;
 
+// Modal helpers
+const modal = document.getElementById('infoModal');
+const modalTransitionClasses = ['transition-opacity', 'duration-300', 'ease-in-out'];
+let modalHideTimeout;
+
+function showModal(title, message, extraContent) {
+  if (!modal) return;
+
+  document.getElementById("modalTitle").innerHTML = title;
+  document.getElementById("modalMessage").innerHTML = message;
+  if (extraContent || extraContent === null) document.getElementById("extraContent").innerHTML = extraContent;
+
+  clearTimeout(modalHideTimeout);
+  modal.classList.remove('hidden');
+  modal.classList.add(...modalTransitionClasses);
+  // ensure fade-in is applied even if it was mid-transition
+  requestAnimationFrame(() => {
+    modal.classList.remove('opacity-0');
+    modal.classList.add('opacity-100');
+  });
+}
+
+function hideModal() {
+  if (!modal || modal.classList.contains('hidden')) return;
+
+  clearTimeout(modalHideTimeout);
+  modal.classList.add(...modalTransitionClasses);
+  modal.classList.remove('opacity-100');
+  modal.classList.add('opacity-0');
+
+  modalHideTimeout = setTimeout(() => {
+    modal.classList.add('hidden');
+    // reset state for next show
+    modal.classList.remove('opacity-0');
+    modal.classList.add('opacity-100');
+  }, 300);
+}
+
 // Check for the cookie and display modal if not present
 const isFirstTimeVisitor = getCookie("firstTimeVisitor");
 if (!isFirstTimeVisitor) {
@@ -17,46 +55,13 @@ function handleAgeConfirm(btn) {
   btn.innerText = '✅';
   btn.disabled = true;
 
-  const modal = document.getElementById('infoModal');
-
-  // Ensure initial state for transition
-  modal.classList.remove('hidden');
-  modal.classList.add('transition-opacity', 'duration-500', 'ease-in-out');
-  modal.classList.add('opacity-100');
-  modal.classList.remove('opacity-0');
-
-  // Force reflow
-  void modal.offsetWidth;
-
-  // Trigger fade out
-  requestAnimationFrame(() => {
-    modal.classList.remove('opacity-100');
-    modal.classList.add('opacity-0');
-  });
-
-  setTimeout(() => {
-    modal.classList.add('hidden');
-    // Reset opacity for next use
-    modal.classList.remove('opacity-0');
-    modal.classList.add('opacity-100');
-  }, 500);
+  hideModal();
 }
 
 // Close modal when clicking outside
-// Close modal when clicking outside
 window.addEventListener('click', (e) => {
-  const modal = document.getElementById('infoModal');
   if (e.target === modal) {
-    // Fade out animation
-    modal.classList.remove('opacity-100');
-    modal.classList.add('opacity-0');
-
-    setTimeout(() => {
-      modal.classList.add('hidden');
-      // Reset for next time
-      modal.classList.remove('opacity-0');
-      modal.classList.add('opacity-100');
-    }, 500);
+    hideModal();
   }
 });
 
@@ -146,9 +151,10 @@ if (infoBtn) {
     showModal("Information about this site:", "This site uses CDN links that have been gathered from Discord channels. They have been submitted by random users, because of this we are not responsible for what videos show up on your screen.", null);
   });
 }
-document.getElementById("closeModal").addEventListener("click", () => {
-  document.getElementById("infoModal").classList.add("hidden");
-});
+const closeModalButton = document.getElementById("closeModal");
+if (closeModalButton) {
+  closeModalButton.addEventListener("click", hideModal);
+}
 
 // Extract the original CDN URL from the proxied URL
 function getDirectUrl(proxiedUrl) {
@@ -250,14 +256,6 @@ function checkVideo(videoUrl) {
     });
 }
 
-// modal logic
-function showModal(title, message, extraContent) {
-  document.getElementById("modalTitle").innerHTML = title;
-  document.getElementById("modalMessage").innerHTML = message;
-  if (extraContent || extraContent === null) document.getElementById("extraContent").innerHTML = extraContent;
-  document.getElementById("infoModal").classList.remove("hidden");
-}
-
 // function to get a cookie by name
 function getCookie(name) {
   const cookieArr = document.cookie.split('; ');
@@ -314,3 +312,28 @@ function setDummyLinks(confirm) {
 player.addEventListener('error', () => {
   error('Playback Error', 'This video cannot be played due to Discord CDN restrictions or network issues. Try Next Video or reload.');
 });
+
+// Logo spin easter egg - Chrome-like animation
+const logo = document.querySelector('img[alt*="logo"]');
+if (logo) {
+  let lastClickTime = 0;
+  let rotation = 0;
+  const spinDuration = 1200;
+  const spinEasing = 'cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+
+  logo.style.transition = `transform ${spinDuration}ms ${spinEasing}`;
+
+  logo.addEventListener('click', () => {
+    const currentTime = Date.now();
+    const timeDiff = currentTime - lastClickTime;
+
+    // Double-click detected (within 500ms)
+    if (timeDiff > 0 && timeDiff < 500) {
+      rotation += 360;
+      logo.style.transform = `rotate(${rotation}deg)`;
+      lastClickTime = 0;
+    } else {
+      lastClickTime = currentTime;
+    }
+  });
+}
