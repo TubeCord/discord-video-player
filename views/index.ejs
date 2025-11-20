@@ -160,59 +160,170 @@
 
   <!-- Three.js Background Script -->
   <script>
-    // Three.js particle background
+    // Starry Sky Background Refined
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
     const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('three-canvas'), alpha: true, antialias: true });
 
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(window.devicePixelRatio);
-    camera.position.z = 50;
 
-    // Create particles
-    const particlesGeometry = new THREE.BufferGeometry();
-    const particlesCount = 1500;
-    const posArray = new Float32Array(particlesCount * 3);
+    // Generate Round Star Texture
+    function createStarTexture() {
+      const canvas = document.createElement('canvas');
+      canvas.width = 32;
+      canvas.height = 32;
+      const ctx = canvas.getContext('2d');
 
-    for (let i = 0; i < particlesCount * 3; i++) {
-      posArray[i] = (Math.random() - 0.5) * 150;
+      const gradient = ctx.createRadialGradient(16, 16, 0, 16, 16, 16);
+      gradient.addColorStop(0, 'rgba(255, 255, 255, 1)');
+      gradient.addColorStop(0.2, 'rgba(255, 255, 255, 0.8)');
+      gradient.addColorStop(0.5, 'rgba(255, 255, 255, 0.2)');
+      gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, 32, 32);
+
+      const texture = new THREE.CanvasTexture(canvas);
+      return texture;
     }
 
-    particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+    const starTexture = createStarTexture();
 
-    const particlesMaterial = new THREE.PointsMaterial({
-      size: 0.3,
-      color: 0x5865f2,
-      transparent: true,
-      opacity: 0.6,
-      blending: THREE.AdditiveBlending
-    });
+    // Create Star Layers for Gradual Appearance
+    const starLayers = [];
+    const layerCounts = [200, 500, 1000]; // Few, then more, then many
+    const layerDelays = [10, 14, 18]; // Seconds to start appearing
 
-    const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
-    scene.add(particlesMesh);
+    function createStarLayer(count) {
+      const starGeo = new THREE.BufferGeometry();
+      const starPos = new Float32Array(count * 3);
 
-    // Animation
-    let mouseX = 0;
-    let mouseY = 0;
+      for (let i = 0; i < count; i++) {
+        starPos[i * 3] = (Math.random() - 0.5) * 600;
+        starPos[i * 3 + 1] = (Math.random() - 0.5) * 600;
+        starPos[i * 3 + 2] = (Math.random() - 0.5) * 600;
+      }
 
-    document.addEventListener('mousemove', (event) => {
-      mouseX = (event.clientX / window.innerWidth) * 2 - 1;
-      mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
-    });
+      starGeo.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
 
+      const starMaterial = new THREE.PointsMaterial({
+        color: 0xffffff,
+        size: 1.5, // Slightly larger because of texture alpha
+        map: starTexture,
+        transparent: true,
+        opacity: 0, // Start invisible
+        depthWrite: false,
+        blending: THREE.AdditiveBlending
+      });
+
+      const stars = new THREE.Points(starGeo, starMaterial);
+      scene.add(stars);
+      return { mesh: stars, material: starMaterial };
+    }
+
+    // Initialize layers
+    layerCounts.forEach(count => starLayers.push(createStarLayer(count)));
+
+    // Shooting Stars Array
+    const shootingStars = [];
+
+    function createShootingStar() {
+      const geometry = new THREE.BufferGeometry();
+      // Start from right side
+      const startX = 100;
+      const startY = (Math.random() * 100) - 20;
+      const startZ = (Math.random() * 100) - 100;
+
+      // Trail length
+      const points = [
+        new THREE.Vector3(0, 0, 0),
+        new THREE.Vector3(15, 5, 0)
+      ];
+
+      geometry.setFromPoints(points);
+
+      const material = new THREE.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.8 });
+      const line = new THREE.Line(geometry, material);
+
+      // Position the line
+      line.position.set(startX, startY, startZ);
+
+      scene.add(line);
+      // Move left and slightly down (Slower speed: -1.5 instead of -3)
+      shootingStars.push({ mesh: line, velocity: new THREE.Vector3(-1.5, -0.5, 0), life: 1.0 });
+    }
+
+    // Idle Timer Logic
+    let idleTime = 0;
+    let starsVisible = false;
+
+    function resetIdleTimer() {
+      idleTime = 0;
+      starsVisible = false;
+      // Reset opacities immediately on activity
+      starLayers.forEach(layer => layer.material.opacity = 0);
+    }
+
+    ['mousemove', 'keydown', 'click', 'scroll'].forEach(evt =>
+      document.addEventListener(evt, resetIdleTimer)
+    );
+
+    setInterval(() => {
+      idleTime++;
+      if (idleTime > 10) {
+        starsVisible = true;
+      }
+    }, 1000);
+
+    // Animation Loop
     function animate() {
       requestAnimationFrame(animate);
 
-      particlesMesh.rotation.y += 0.0005;
-      particlesMesh.rotation.x = mouseY * 0.05;
-      particlesMesh.rotation.y += mouseX * 0.0005;
+      // Gradual Layered Fade In
+      if (starsVisible) {
+        starLayers.forEach((layer, index) => {
+          if (idleTime > layerDelays[index]) {
+            if (layer.material.opacity < 0.8) {
+              layer.material.opacity += 0.002; // Very slow fade in
+            }
+          }
+        });
+      }
+
+      // Rotate Stars (Bottom-Left to Top-Right simulation)
+      // To move Bottom-Left to Top-Right on screen:
+      // Stars need to move +X (Right) and +Y (Up).
+      // Rotation conventions:
+      // Rotate Y negative -> Stars move Right.
+      // Rotate X negative -> Stars move Up.
+      starLayers.forEach(layer => {
+        layer.mesh.rotation.y -= 0.0002;
+        layer.mesh.rotation.x -= 0.0001;
+      });
+
+      // Shooting Stars
+      if (starsVisible && Math.random() < 0.005) { // 0.5% chance per frame (less frequent)
+        createShootingStar();
+      }
+
+      for (let i = shootingStars.length - 1; i >= 0; i--) {
+        const s = shootingStars[i];
+        s.mesh.position.add(s.velocity);
+        s.life -= 0.01; // Slower fade out
+        s.mesh.material.opacity = s.life;
+
+        if (s.life <= 0) {
+          scene.remove(s.mesh);
+          shootingStars.splice(i, 1);
+        }
+      }
 
       renderer.render(scene, camera);
     }
 
     animate();
 
-    // Handle window resize
     window.addEventListener('resize', () => {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
